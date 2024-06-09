@@ -1,7 +1,9 @@
 package com.app.calendrier1.controllers;
 
 import com.app.calendrier1.dtos.EventDTO;
-import com.app.calendrier1.entities.Event;
+import com.app.calendrier1.services.UtilisateurService;
+import com.fasterxml.jackson.databind.JsonNode;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,12 +18,20 @@ import java.util.NoSuchElementException;
 @RequestMapping("/events")
 public class EventController {
     private EventService eventService;
+    private UtilisateurService userservice;
 
     @Autowired
-    public EventController(EventService eventService) {
+    public EventController(EventService eventService,UtilisateurService userservice) {
         this.eventService = eventService;
+        this.userservice=userservice;
     }
+    @PostMapping("/utilisateur/add")
+    public void addUtilisateur(@RequestBody  JsonNode jsonNode) {
+        // Convertir JsonNode en JSONObject
+        JSONObject jsonObject = new JSONObject(jsonNode.toString());
 
+        // Appeler notifService.Ajouter avec le JSONObject
+        userservice.add(jsonObject);}
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/add/{organizerId}")
     public ResponseEntity<String> addEvent(@RequestBody EventDTO eventDTO, @PathVariable int organizerId) {
