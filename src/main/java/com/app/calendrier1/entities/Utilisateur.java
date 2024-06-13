@@ -18,9 +18,11 @@ public class Utilisateur {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private int id;
-	    @Column(name = "id_entreprise")
 
-	    private int id_entreprise;
+	    @Column(name = "id_entreprise")
+	    private int idEntreprise;
+
+
 	    private String email;
 
 	    @OneToMany(mappedBy = "organisateur")

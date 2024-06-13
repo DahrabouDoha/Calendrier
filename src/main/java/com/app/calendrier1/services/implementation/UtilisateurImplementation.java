@@ -6,6 +6,9 @@ import com.app.calendrier1.services.UtilisateurService;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class UtilisateurImplementation implements UtilisateurService {
    private UtilisateurRepository userrepository;
@@ -22,9 +25,24 @@ public class UtilisateurImplementation implements UtilisateurService {
 
         Utilisateur utilisateur = new Utilisateur();
         utilisateur.setId(id);
-        utilisateur.setId_entreprise(idEntreprise);
+        utilisateur.setIdEntreprise(idEntreprise);
         utilisateur.setEmail(email);
 
         userrepository.save(utilisateur);
     }
+
+
+    public int getIdByEmail(String email) {
+        Utilisateur utilisateur = userrepository.findByEmail(email);
+        return utilisateur != null ? utilisateur.getId() : -1;
+    }
+    public List<String> getEmailsByIdEntreprise(int idEntreprise) {
+        List<Utilisateur> utilisateurs = userrepository.findByIdEntreprise(idEntreprise);
+        return utilisateurs.stream().map(Utilisateur::getEmail).collect(Collectors.toList());
+    }
+    public  int getIdEntrepriseByEmail(String email){
+        Utilisateur utilisateur = userrepository.findByEmail(email);
+        return utilisateur != null ? utilisateur.getIdEntreprise() : -1;
+    }
+
 }
