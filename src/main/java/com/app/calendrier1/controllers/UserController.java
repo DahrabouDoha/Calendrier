@@ -18,9 +18,9 @@ public class UserController {
         return userservice.getIdByEmail(email);
     }
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("/emails/entreprise/{idEntreprise}")
-    public List<String> getEmailsByIdEntreprise(@PathVariable int idEntreprise) {
-        return userservice.getEmailsByIdEntreprise(idEntreprise);
+    @GetMapping("/emails/entreprise/{idEntreprise}/exclure/{idUser}")
+    public List<String> getEmailsByIdEntrepriseExcludingUser(@PathVariable int idEntreprise, @PathVariable int idUser) {
+        return userservice.getEmailsByIdEntreprise(idEntreprise, idUser);
     }
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/id_entreprise/email/{email}")

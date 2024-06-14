@@ -36,9 +36,12 @@ public class UtilisateurImplementation implements UtilisateurService {
         Utilisateur utilisateur = userrepository.findByEmail(email);
         return utilisateur != null ? utilisateur.getId() : -1;
     }
-    public List<String> getEmailsByIdEntreprise(int idEntreprise) {
+    public List<String> getEmailsByIdEntreprise(int idEntreprise, int idUser) {
         List<Utilisateur> utilisateurs = userrepository.findByIdEntreprise(idEntreprise);
-        return utilisateurs.stream().map(Utilisateur::getEmail).collect(Collectors.toList());
+        return utilisateurs.stream()
+                .filter(utilisateur -> utilisateur.getId() != idUser)
+                .map(Utilisateur::getEmail)
+                .collect(Collectors.toList());
     }
     public  int getIdEntrepriseByEmail(String email){
         Utilisateur utilisateur = userrepository.findByEmail(email);

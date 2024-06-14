@@ -10,6 +10,6 @@ public interface UtilisateurService {
     public abstract void add(JSONObject jsonObject);
 
     public abstract  int getIdByEmail(String email) ;
-    public abstract List<String> getEmailsByIdEntreprise(int idEntreprise);
+    public abstract List<String> getEmailsByIdEntreprise(int idEntreprise, int idUser);
     public abstract int getIdEntrepriseByEmail(String email);
 }
